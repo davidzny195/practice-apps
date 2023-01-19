@@ -1,6 +1,5 @@
 import React from 'react';
 import FormActions from './FormActions.jsx'
-import ReactModal from 'react-modal';
 import { useState } from 'react';
 
 const TermEntry = ({ entry, refetch }) => {
@@ -11,9 +10,7 @@ const TermEntry = ({ entry, refetch }) => {
       <div className='termEntry'>
         <p>{entry.term}</p>
         <button onClick={() => setIsOpen(!isOpen)}>Actions</button>
-        <ReactModal isOpen={isOpen} ariaHideApp={false}>
-          <FormActions entry={entry} refetch={refetch} handleClose={() => setIsOpen(!isOpen)}/>
-        </ReactModal>
+        <FormActions entry={entry} refetch={refetch} handleClose={() => setIsOpen(!isOpen)}/>
       </div>
         <p>{entry.definition}</p>
         <hr></hr>
