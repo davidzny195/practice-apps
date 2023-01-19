@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const app = express();
 const path = require("path");
 const db = require('../database')
 
@@ -8,7 +9,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 const router = require('./routes.js')
 
-const app = express();
 
 app.use(morgan('dev'))
 app.use(cors())
