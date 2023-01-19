@@ -12,7 +12,7 @@ const GlossaryList = (props) => {
 
   const populateList = () => {
     getGlossary().then((data) => {
-      setGlossary(data)
+      return setGlossary(data)
     }).catch((error) => {
       console.log('Error setting glossary')
     })
