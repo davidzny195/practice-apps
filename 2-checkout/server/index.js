@@ -8,14 +8,14 @@ const logger = require("./middleware/logger");
 const db = require("./db");
 
 // Middleware
+const router = require('./routes.js')
 const morgan = require('morgan')
 const cors = require('cors')
-// const router = require('./routes.js')
 
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
-// app.use('/api', router)
+app.use('/', router)
 
 // Adds `req.session_id` based on the incoming cookie value.
 // Generates a new session if one does not exist.

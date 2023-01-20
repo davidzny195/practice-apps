@@ -26,7 +26,7 @@ db.connectAsync()
     )
   ).then(() => {
     db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS sessions (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, hash VARCHAR(64), user_id INT, FOREIGN KEY (user_id) REFERENCES users(id))"
+      "CREATE TABLE IF NOT EXISTS sessions (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, hash VARCHAR(64), user_id INT, submitted BOOLEAN DEFAULT false, page_number INT, FOREIGN KEY (user_id) REFERENCES users(id))"
     )
   })
   .catch((err) => console.log(err));
