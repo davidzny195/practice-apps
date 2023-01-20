@@ -6,6 +6,7 @@ const FormActions = ({ entry, refetch }) => {
   const [newTerm, setNewTerm] = useState('')
   const [newDefinition, setNewDefinition] = useState('')
 
+
   const handleDelete = () => {
     return deleteTerm({ id: entry}).then(() => {
       return refetch()

@@ -46,8 +46,10 @@ const GlossaryList = (props) => {
   }
 
   const nextPage = () => {
-    let maxPage = total / 5
-    if (page === maxPage) return
+    let maxPage = Math.ceil(total / 5)
+    if (page === maxPage) {
+      return alert('No More pages')
+    }
     let newPage = page + 1
     setPage(newPage)
     populateList(newPage)
