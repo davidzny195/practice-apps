@@ -3,9 +3,12 @@ const models = require('../models')
 
 module.exports = {
   glossary: {
-    get: (req, res) => {
-      return models.glossary.get().then((data) => {
-        res.status(200).json(data)
+    get: async (req, res) => {
+      const { page } = req.query
+
+      const count = await models.glossary.getCount()
+      return models.glossary.get(page).then((data) => {
+        res.status(200).json({ total: count, data})
       }).catch((error) => {
         res.status(404).send('Error get res')
       })

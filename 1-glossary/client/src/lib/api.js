@@ -1,7 +1,9 @@
 const server = 'http://localhost:3000/api/glossary'
 
-const getGlossary =  () => {
-  return fetch(server).then((res) => {
+const getGlossary =  (params) => {
+  return fetch(`${server}?` + new URLSearchParams({
+    page: params
+  })).then((res) => {
     return res.json()
   })
 }

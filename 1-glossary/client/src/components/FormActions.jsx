@@ -2,12 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import { deleteTerm, updateTerm } from '../lib/api.js'
 
-const FormActions = ({ entry, refetch, handleClose }) => {
+const FormActions = ({ entry, refetch }) => {
   const [newTerm, setNewTerm] = useState('')
   const [newDefinition, setNewDefinition] = useState('')
 
   const handleDelete = () => {
-    return deleteTerm({ id: entry._id}).then(() => {
+    return deleteTerm({ id: entry}).then(() => {
       return refetch()
     }).catch((error) => {
       console.log('Error delete')
@@ -15,7 +15,7 @@ const FormActions = ({ entry, refetch, handleClose }) => {
   }
 
   const handleUpdate = () => {
-    return updateTerm({ id: entry._id, term: newTerm, definition: newDefinition}).then(() => {
+    return updateTerm({ id: entry, term: newTerm, definition: newDefinition}).then(() => {
       return refetch()
     }).catch((error) => {
       console.log('Error update')
@@ -34,7 +34,6 @@ const FormActions = ({ entry, refetch, handleClose }) => {
         </label>
      <button onClick={handleDelete}>Delete</button>
      <button onClick={handleUpdate}>Update</button>
-     <button onClick={handleClose}>X</button>
     </div>
   )
 }

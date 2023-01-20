@@ -2,8 +2,13 @@ const { Glossary } = require('../../database/index.js')
 
 module.exports = {
   glossary: {
-    get: () => {
-      return Glossary.find()
+    get: (page) => {
+      let skip = 5 * (page - 1)
+      return Glossary.find().skip(skip).limit(5).exec()
+    },
+
+    getCount: () => {
+      return Glossary.count().exec()
     },
 
     create: (params) => {
