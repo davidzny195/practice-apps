@@ -17,12 +17,12 @@ db.connectAsync()
   .then(() =>
     // Expand this table definition as needed:
     db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40) NOT NULL, password VARCHAR(64) NOT NULL, salt VARCHAR(64) NOT NULL)"
+      "CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40) NOT NULL, email VARCHAR(40) NOT NULL, password VARCHAR(64) NOT NULL, salt VARCHAR(64) NOT NULL)"
     )
 
   ).then(() =>
     db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS user_info (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, address_line1 VARCHAR(255), address_line2 VARCHAR(255), city VARCHAR(255), state VARCHAR(255), zip VARCHAR(255), phone_number VARCHAR(255), FOREIGN KEY (user_id) REFERENCES users(id))"
+      "CREATE TABLE IF NOT EXISTS user_info (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, address_line1 VARCHAR(255), address_line2 VARCHAR(255), city VARCHAR(255), state VARCHAR(255), zip VARCHAR(20), phone_number VARCHAR(20), credit VARCHAR(20), expiry VARCHAR(20), CVV VARCHAR(20), billing_zip VARCHAR(20), FOREIGN KEY (user_id) REFERENCES users(id))"
     )
   ).then(() => {
     db.queryAsync(

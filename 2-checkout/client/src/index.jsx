@@ -4,10 +4,10 @@ import App from './components/App.jsx'
 
 render(
   <div>
-    <App />
     <p>
       <code>Page Cookie: {JSON.stringify(document.cookie, undefined, "\t")}</code>
     </p>
+    <App />
   </div>,
   document.getElementById("root")
 );
