@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { FormContext } from './App.jsx'
+import { handleInputAndErrors, clearErrors, formValidator } from '../lib/helpers.js'
 import validator from 'validator'
 import InputField from './InputField.jsx'
 
@@ -10,35 +11,24 @@ const PaymentInfo = () => {
   const { form, setForm, setPage } = useContext(FormContext)
 
   const handleInput = (e) => {
-    const { name, value } = e.target
-    let error = ''
-    if (name === 'credit') error = !validator.isCreditCard(value) ? 'Bad card' : ''
-    if (name === 'CVV') error = value.length !== 3 ? 'Bad cvv' : ''
-    if (name === 'billing_zip') error =  value.length < 5 ? 'Bad billing' : ''
-    if (name === 'expiry') {
-      let date = new Date(value)
-      error = new Date() < date ? '' : 'Bad date'
-    }
-
-    setErrors({ ...errors, [name]: error })
-    setForm(prevState => ({ ...prevState, paymentInfo: { ...prevState.paymentInfo, [name]: value }}))
+    setSubmitError(false)
+    const res = handleInputAndErrors(e)
+    setErrors({ ...errors, [res.name]: res.error })
+    setForm(prev => ({ ...prev, paymentInfo: { ...prev.paymentInfo, [res.name]: res.value }}))
   }
 
   const handleSubmit = () => {
-    if (Object.values(errors).some((field) => field !== '') || Object.values(form.paymentInfo).some((field) => !field)) {
-      return setSubmitError(true)
-    }
+    const isValidated = formValidator(errors, form.paymentInfo)
+    if (!isValidated) return setSubmitError(true)
     setPage('checkout')
   }
 
 
   // Clear errors
   useEffect(() => {
-    for (let key in form.paymentInfo) {
-      if (!form.paymentInfo[key]) {
-        setErrors(prev => ({ ...prev, [key]: '' }))
-      }
-    }
+    clearErrors(form.paymentInfo, (key) => {
+      setErrors(prev => ({ ...prev, [key]: '' }))
+    })
   }, [form.paymentInfo])
 
   return (
