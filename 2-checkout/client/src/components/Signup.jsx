@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { FormContext } from './App.jsx'
+import { handleInputAndErrors, clearErrors, formValidator } from '../lib/helpers.js'
 import validator from 'validator'
 import InputField from './InputField.jsx'
 
@@ -11,32 +12,21 @@ const Signup = () => {
 
   const handleInput = (e) => {
     setSubmitError(false)
-    const { name, value } = e.target
-
-    let error;
-
-    if (name ===  'username') error = value.length < 5 ? 'Username too short' : ''
-    if (name === 'email') error = validator.isEmail(value) ? '' : 'Bad Email'
-    if (name === 'password') error = validator.isStrongPassword(value) ? '' : 'Bad Password'
-
-    setErrors({ ...errors, [name]: error })
-    setForm(prev => ({ ...prev, account: { ...prev.account, [name]: value }}))
+    const res = handleInputAndErrors(e)
+    setErrors({ ...errors, [res.name]: res.error })
+    setForm(prev => ({ ...prev, account: { ...prev.account, [res.name]: res.value }}))
   }
 
   const handleNext = () => {
-    if (Object.values(errors).some((field) => field !== '') || Object.values(form.account).some((field) => !field)) {
-      return setSubmitError(true)
-    }
+    const isValidated = formValidator(errors, form.account)
+    if (!isValidated) return setSubmitError(true)
     setPage('userInfo')
   }
 
-  // Clear errors
   useEffect(() => {
-    for (let key in form.account) {
-      if (!form.account[key]) {
-        setErrors(prev => ({ ...prev, [key]: '' }))
-      }
-    }
+    clearErrors(form.account, (key) => {
+      setErrors(prev => ({ ...prev, [key]: '' }))
+    })
   }, [form.account])
 
   return (

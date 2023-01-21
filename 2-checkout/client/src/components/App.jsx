@@ -8,7 +8,7 @@ import PaymentInfo from './PaymentInfo.jsx'
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('checkout')
+  const [page, setPage] = useState('userInfo')
   const [form, setForm] = useState({
     account: {
       username: '',
