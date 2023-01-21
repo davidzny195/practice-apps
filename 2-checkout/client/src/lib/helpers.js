@@ -1,6 +1,6 @@
 import validator from 'validator'
 
-const handleInputAndErrors = (e) => {
+const handleErrors = (e) => {
   const { name, value } = e.target
   let error;
 
@@ -34,4 +34,4 @@ const formValidator = (errorObj, formObj, exception) => {
 }
 
 
-export { handleInputAndErrors, clearErrors, formValidator }
+export { handleErrors, clearErrors, formValidator }

@@ -1,8 +1,7 @@
 import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { FormContext } from './App.jsx'
-import { handleInputAndErrors, clearErrors, formValidator } from '../lib/helpers.js'
-import validator from 'validator'
+import { handleErrors, clearErrors, formValidator } from '../lib/helpers.js'
 import InputField from './InputField.jsx'
 
 const Signup = () => {
@@ -12,7 +11,7 @@ const Signup = () => {
 
   const handleInput = (e) => {
     setSubmitError(false)
-    const res = handleInputAndErrors(e)
+    const res = handleErrors(e)
     setErrors({ ...errors, [res.name]: res.error })
     setForm(prev => ({ ...prev, account: { ...prev.account, [res.name]: res.value }}))
   }
