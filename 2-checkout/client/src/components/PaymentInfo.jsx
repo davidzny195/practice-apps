@@ -1,12 +1,13 @@
 import React from 'react'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { FormContext } from './App.jsx'
 import validator from 'validator'
 import InputField from './InputField.jsx'
 
 const PaymentInfo = () => {
   const [errors, setErrors] = useState({credit: '', expiry: '', CVV: '', billing_zip: ''})
-  const { form, setForm } = useContext(FormContext)
+  const [submitError, setSubmitError] = useState(false)
+  const { form, setForm, setPage } = useContext(FormContext)
 
   const handleInput = (e) => {
     const { name, value } = e.target
@@ -23,11 +24,27 @@ const PaymentInfo = () => {
     setForm(prevState => ({ ...prevState, paymentInfo: { ...prevState.paymentInfo, [name]: value }}))
   }
 
+  const handleSubmit = () => {
+    if (Object.values(errors).some((field) => field !== '') || Object.values(form.paymentInfo).some((field) => !field)) {
+      return setSubmitError(true)
+    }
+    setPage('checkout')
+  }
+
+
+  // Clear errors
+  useEffect(() => {
+    for (let key in form.paymentInfo) {
+      if (!form.paymentInfo[key]) {
+        setErrors(prev => ({ ...prev, [key]: '' }))
+      }
+    }
+  }, [form.paymentInfo])
+
   return (
     <>
       <div>
         PAYMENT INFO
-        <form>
         <div className="display-column">
           {Object.entries(Object.values(form)[2]).map((keyVal, idx) => {
             return <div key={idx}>
@@ -35,7 +52,11 @@ const PaymentInfo = () => {
               </div>
           })}
         </div>
-        </form>
+        <button onClick={() => setPage('userInfo')}>Prev</button>
+        {submitError && <span className="errorMessage">Form is not completed</span>}
+        <div>
+          <button onClick={handleSubmit}>Purchase</button>
+        </div>
       </div>
     </>
   )

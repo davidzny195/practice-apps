@@ -8,7 +8,7 @@ import PaymentInfo from './PaymentInfo.jsx'
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('checkout')
+  const [page, setPage] = useState('userInfo')
   const [form, setForm] = useState({
     account: {
       username: '',
@@ -31,16 +31,6 @@ const App = () => {
     }
   })
 
-  const handlePrev = () => {
-    if (page === 'paymentInfo') setPage('userInfo')
-  }
-
-  const handleNext = () => {
-    if (page === 'signup') setPage('userInfo')
-    if (page === 'userInfo') setPage('paymentInfo')
-    if (page === 'paymentInfo') setPage('checkout')
-  }
-
   const formComponents = {
     checkout: <Checkout />,
     signup: <Signup />,
@@ -50,19 +40,14 @@ const App = () => {
 
   return (
     <>
-      <FormContext.Provider value={{ form, setForm, page, setPage }}>
+      <FormContext.Provider value={{ form, setForm, setPage }}>
         <div>
           {formComponents[page]}
-        </div>
-        <div>
-          {page === 'paymentInfo' &&  <button onClick={handlePrev}>Prev</button>}
-          {page !== 'checkout' &&  <button onClick={handleNext}>
-            {page === 'paymentInfo' ? 'Purchase' : page === 'signup' ? 'Create Account' : 'Next'}
-            </button>}
         </div>
       </FormContext.Provider>
     </>
   )
+
 }
 
 export default App

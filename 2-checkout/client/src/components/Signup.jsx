@@ -6,22 +6,38 @@ import InputField from './InputField.jsx'
 
 const Signup = () => {
   const [errors, setErrors] = useState({ name: '', email: '', password: ''})
-
-  const { form, setForm } = useContext(FormContext)
+  const [submitError, setSubmitError] = useState(false)
+  const { form, setForm, setPage } = useContext(FormContext)
 
   const handleInput = (e) => {
-
+    setSubmitError(false)
     const { name, value } = e.target
-    let error = ''
+
+    let error;
+
     if (name ===  'username') error = value.length < 5 ? 'Username too short' : ''
     if (name === 'email') error = validator.isEmail(value) ? '' : 'Bad Email'
     if (name === 'password') error = validator.isStrongPassword(value) ? '' : 'Bad Password'
 
     setErrors({ ...errors, [name]: error })
-    setForm(prevState => ({ ...prevState, account: { ...prevState.account, [name]: value }}))
+    setForm(prev => ({ ...prev, account: { ...prev.account, [name]: value }}))
   }
 
-  // TODO: Remove errors on clear
+  const handleSignup = () => {
+    if (Object.values(errors).some((field) => field !== '') || Object.values(form.account).some((field) => !field)) {
+      return setSubmitError(true)
+    }
+    setPage('userInfo')
+  }
+
+  // Clear errors
+  useEffect(() => {
+    for (let key in form.account) {
+      if (!form.account[key]) {
+        setErrors(prev => ({ ...prev, [key]: '' }))
+      }
+    }
+  }, [form.account])
 
   return (
     <>
@@ -36,6 +52,10 @@ const Signup = () => {
           })}
         </div>
         </form>
+      </div>
+        {submitError && <span className="errorMessage">Form is not completed</span>}
+      <div>
+        <button onClick={handleSignup}>Create Account</button>
       </div>
     </>
   )

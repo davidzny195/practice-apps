@@ -7,7 +7,7 @@ const InputField = ({ name, value, errors, handleInput, type }) => {
     email: 'Email',
     password: 'Password',
     address_line1: 'Address line 1',
-    address_line2: 'Address line 2',
+    address_line2: 'Address line 2 (optional)',
     city: 'City',
     state: 'State',
     zip: 'Zip',
