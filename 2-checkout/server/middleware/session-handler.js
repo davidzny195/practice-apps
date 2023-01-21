@@ -25,6 +25,5 @@ module.exports = (req, res, next) => {
     req.session_id = uuidv4();
     res.cookie("s_id", req.session_id);
   }
-
   next();
 };

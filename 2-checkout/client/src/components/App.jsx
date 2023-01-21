@@ -1,14 +1,15 @@
 import React from 'react'
-import { useState, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 import Checkout from './Checkout.jsx'
 import Signup from './Signup.jsx'
 import UserInfo from './UserInfo.jsx'
 import PaymentInfo from './PaymentInfo.jsx'
+import { init } from '../lib/api.js'
 
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('paymentInfo')
+  const [page, setPage] = useState('checkout')
   const [form, setForm] = useState({
     account: {
       username: '',
@@ -30,6 +31,11 @@ const App = () => {
       billing_zip: ''
     }
   })
+
+
+  useEffect(() => {
+    init()
+  }, [])
 
   const formComponents = {
     checkout: <Checkout />,

@@ -15,11 +15,11 @@ const cors = require('cors')
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
-app.use('/', router)
 
 // Adds `req.session_id` based on the incoming cookie value.
 // Generates a new session if one does not exist.
 app.use(sessionHandler);
+app.use('/', router)
 
 // Logs the time, session_id, method, and url of incoming requests.
 app.use(logger);
