@@ -59,7 +59,7 @@ main {
   margin: auto;
 }
 
-.signup {
+.display-column {
   display: flex;
   flex-direction: column;
 }

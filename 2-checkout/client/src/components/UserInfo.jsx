@@ -5,7 +5,7 @@ const UserInfo = () => {
 
   return (
     <>
-     <div>
+     <div className="display-column">
         User
       </div>
     </>

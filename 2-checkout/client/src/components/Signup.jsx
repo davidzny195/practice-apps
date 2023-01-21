@@ -1,19 +1,13 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { FormContext } from './App.jsx'
 import validator from 'validator'
+import InputField from './InputField.jsx'
 
-const Signup = ({ next }) => {
+const Signup = () => {
   const [errors, setErrors] = useState({ name: '', email: '', password: ''})
 
-  const handleSignup = (e) => {
-    e.preventDefault()
-    const hasErrors = !Object.values(errors).every((x => !x))
-    // need to check input fields have values
-
-    // need to push to user database
-    // need to create session
-    next()
-  }
+  const { form, setForm } = useContext(FormContext)
 
   const handleInput = (e) => {
 
@@ -27,32 +21,21 @@ const Signup = ({ next }) => {
       error = validator.isStrongPassword(value) ? '' : 'Bad Password'
     }
     setErrors({ ...errors, [name]: error })
+    setForm(prevState => ({ ...prevState, account: { ...prevState.account, [name]: value }}))
   }
-
 
   return (
     <>
       <div>
-        Signup
-        <form onSubmit={handleSignup}>
-        <div className="signup">
-          <label>
-            Name:
-            <input name="username" type="text" onChange={handleInput} />
-          </label>
-          <span className="errorMessage">{errors.username}</span>
-          <label>
-            Email:
-            <input name="email" type="text" onChange={handleInput}/>
-          </label>
-          <span className="errorMessage">{errors.email}</span>
-          <label>
-            Password:
-            <input name="password" type="text" maxLength="12" onChange={handleInput}/>
-          </label>
-          <span className="errorMessage">{errors.password}</span>
+        SIGNUP
+        <form>
+        <div className="display-column">
+          {Object.entries(Object.values(form)[0]).map((keyVal, idx) => {
+            return <div key={idx}>
+              <InputField name={keyVal[0]} value={keyVal[1]} errors={errors} handleInput={handleInput} />
+              </div>
+          })}
         </div>
-        <button>Next</button>
         </form>
       </div>
     </>
