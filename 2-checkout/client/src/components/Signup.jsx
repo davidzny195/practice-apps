@@ -23,7 +23,7 @@ const Signup = () => {
     setForm(prev => ({ ...prev, account: { ...prev.account, [name]: value }}))
   }
 
-  const handleSignup = () => {
+  const handleNext = () => {
     if (Object.values(errors).some((field) => field !== '') || Object.values(form.account).some((field) => !field)) {
       return setSubmitError(true)
     }
@@ -55,7 +55,7 @@ const Signup = () => {
       </div>
         {submitError && <span className="errorMessage">Form is not completed</span>}
       <div>
-        <button onClick={handleSignup}>Create Account</button>
+        <button onClick={handleNext}>Next</button>
       </div>
     </>
   )
