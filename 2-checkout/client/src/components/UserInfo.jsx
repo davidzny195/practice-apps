@@ -48,6 +48,7 @@ const UserInfo = () => {
               </div>
           })}
         </div>
+        <button onClick={() => setPage('signup')}>Prev</button>
         {submitError && <span className="errorMessage">Form is not completed</span>}
         <div>
           <button onClick={handleNext}>Next</button>
