@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, createContext } from 'react'
+import Checkout from './Checkout.jsx'
 import Signup from './Signup.jsx'
 import UserInfo from './UserInfo.jsx'
 import PaymentInfo from './PaymentInfo.jsx'
@@ -7,7 +8,7 @@ import PaymentInfo from './PaymentInfo.jsx'
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('signup')
+  const [page, setPage] = useState('checkout')
   const [form, setForm] = useState({
     account: {
       username: '',
@@ -23,7 +24,7 @@ const App = () => {
       phone_number: '',
     },
     paymentInfo: {
-      credit: '',
+      credit: '5555555555554444',
       expiry: '',
       CVV: '',
       billing_zip: ''
@@ -31,30 +32,33 @@ const App = () => {
   })
 
   const handlePrev = () => {
-    if (page === 'paymentInfo') return setPage('userInfo')
+    if (page === 'paymentInfo') setPage('userInfo')
   }
 
   const handleNext = () => {
-    if (page === 'signup') return setPage('userInfo')
-    if (page === 'userInfo') return setPage('paymentInfo')
+    if (page === 'signup') setPage('userInfo')
+    if (page === 'userInfo') setPage('paymentInfo')
+    if (page === 'paymentInfo') setPage('checkout')
   }
 
   const formComponents = {
+    checkout: <Checkout />,
     signup: <Signup />,
     userInfo: <UserInfo />,
-    payment: <PaymentInfo />
+    paymentInfo: <PaymentInfo />
   }
 
   return (
     <>
-      <FormContext.Provider value={{ form, setForm }}>
-        {page}
+      <FormContext.Provider value={{ form, setForm, page, setPage }}>
         <div>
           {formComponents[page]}
         </div>
         <div>
           {page === 'paymentInfo' &&  <button onClick={handlePrev}>Prev</button>}
-          {page !== 'paymentInfo' &&  <button onClick={handleNext}>Next</button>}
+          {page !== 'checkout' &&  <button onClick={handleNext}>
+            {page === 'paymentInfo' ? 'Purchase' : page === 'signup' ? 'Create Account' : 'Next'}
+            </button>}
         </div>
       </FormContext.Provider>
     </>
