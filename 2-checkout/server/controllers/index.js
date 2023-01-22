@@ -18,14 +18,15 @@ module.exports = {
     },
 
 
-    updateForm: (req, res) => {
-      return models.checkout.updateForm(req.body, req.session_id)
-        .then(() => res.status(203).send('Update Successful'))
-        .catch((err) => res.status(400).send('Update Unsuccessful'))
+    updateForm: async (req, res) => {
 
-      // .then(() => {
-      //   res.status(203).send('Update Successful')
-      // }).catch((err) => res.status(400).send('Update Unsuccessful'))
+      try {
+        const update = await models.checkout.updateForm(req.body, req.session_id)
+        if (update) res.status(203).send('Update Successful')
+
+      } catch (err) {
+        res.status(404).send(err)
+      }
     }
   },
 
@@ -36,10 +37,6 @@ module.exports = {
       }).catch((err) => res.status(400).send('Session not initiated'))
 
     },
-
-    update: (req, res) => {
-      // update page number / completed / userId
-    }
 
   }
 }

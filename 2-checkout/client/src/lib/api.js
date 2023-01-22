@@ -26,9 +26,7 @@ const updateForm = (params) => {
     },
     body: JSON.stringify(params)
   }).then((res) => {
-    return res
-  }).catch((err) => {
-    console.log('Error creating user')
+    return res.status
   })
 }
 

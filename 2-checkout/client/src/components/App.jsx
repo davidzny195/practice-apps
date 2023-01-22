@@ -4,12 +4,13 @@ import Checkout from './Checkout.jsx'
 import Signup from './Signup.jsx'
 import UserInfo from './UserInfo.jsx'
 import PaymentInfo from './PaymentInfo.jsx'
+import Summary from './Summary.jsx'
 import { init } from '../lib/api.js'
 
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('paymentInfo')
+  const [page, setPage] = useState('checkout')
   const [form, setForm] = useState({
     account: {
       username: 'david',
@@ -41,7 +42,8 @@ const App = () => {
     checkout: <Checkout />,
     signup: <Signup />,
     userInfo: <UserInfo />,
-    paymentInfo: <PaymentInfo />
+    paymentInfo: <PaymentInfo />,
+    summary: <Summary />
   }
 
   return (

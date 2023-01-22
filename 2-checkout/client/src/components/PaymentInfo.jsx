@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { FormContext } from './App.jsx'
 import { handleErrors, clearErrors, formValidator } from '../lib/helpers.js'
+import { updateForm } from '../lib/api.js'
 import InputField from './InputField.jsx'
 
 const PaymentInfo = () => {
@@ -19,7 +20,11 @@ const PaymentInfo = () => {
   const handleSubmit = () => {
     const isValidated = formValidator(errors, form.paymentInfo)
     if (!isValidated) return setSubmitError(true)
-    setPage('checkout')
+    return updateForm({ ...form.paymentInfo, page: 'summary'})
+      .then((res) => {
+        if (res.status === 203) setPage('summary')
+        else setSubmitError(true)
+      })
   }
 
 

@@ -9,6 +9,5 @@ router.post('/checkout', controller.checkout.updateForm)
 
 router.get('/session', controller.session.handler)
 
-router.put('/session', controller.session.update)
 
 module.exports = router
