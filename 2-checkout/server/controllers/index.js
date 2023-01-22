@@ -19,7 +19,9 @@ module.exports = {
 
 
     updateForm: (req, res) => {
-      models.checkout.updateForm(req.body, req.session_id)
+      return models.checkout.updateForm(req.body, req.session_id)
+        .then(() => res.status(203).send('Update Successful'))
+        .catch((err) => res.status(400).send('Update Unsuccessful'))
 
       // .then(() => {
       //   res.status(203).send('Update Successful')

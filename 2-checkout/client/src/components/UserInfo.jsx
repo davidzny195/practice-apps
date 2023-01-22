@@ -20,8 +20,8 @@ const UserInfo = () => {
   const handleNext = () => {
     const isValidated = formValidator(errors, form.userInfo, 'address_line2')
     if (!isValidated) return setSubmitError(true)
-    return updateForm(form.userInfo)
-      .then(() => setPage('PaymentInfo'))
+    return updateForm({ ...form.userInfo, page: 'paymentInfo'})
+      .then(() => setPage('paymentInfo'))
       .catch((err) => setErrorSubmit(true))
 
   }
