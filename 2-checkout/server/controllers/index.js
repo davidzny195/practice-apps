@@ -1,22 +1,29 @@
 const models = require('../models')
 
 module.exports = {
+  user: {
+    create: (req, res) => {
+      const { username, email, password } = req.body
+
+      return models.user.create(username, email, password, req.session_id).then((result) => {
+        res.status(201).send('Create successful')
+      }).catch((err) => res.status(400).send('Create unsuccessful'))
+    },
+  },
+
   checkout: {
     populate: (req, res) => {
       // get userInput from database
       res.json('hello')
     },
 
-    create: (req, res) => {
-      const { username, email, password } = req.body
 
-      return models.checkout.create(username, email, password, req.session_id).then((result) => {
-        res.status(201).send('Create successful')
-      }).catch((err) => res.status(400).send('Create unsuccessful'))
-    },
+    updateForm: (req, res) => {
+      models.checkout.updateForm(req.body, req.session_id)
 
-    update: (req, res) => {
-      // update during each step of the form
+      // .then(() => {
+      //   res.status(203).send('Update Successful')
+      // }).catch((err) => res.status(400).send('Update Unsuccessful'))
     }
   },
 

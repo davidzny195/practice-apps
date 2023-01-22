@@ -3,9 +3,9 @@ const router = require('express').Router()
 
 router.get('/checkout', controller.checkout.populate)
 
-router.post('/checkout', controller.checkout.create)
+router.post('/user', controller.user.create)
 
-router.put('/checkout', controller.checkout.update)
+router.post('/checkout', controller.checkout.updateForm)
 
 router.get('/session', controller.session.handler)
 

@@ -17,7 +17,7 @@ db.connectAsync()
   .then(() =>
     // Expand this table definition as needed:
     db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40) NOT NULL, email VARCHAR(40) NOT NULL, password VARCHAR(64) NOT NULL)"
+      "CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(40), username VARCHAR(40) NOT NULL, email VARCHAR(40) NOT NULL, password VARCHAR(64) NOT NULL)"
     )
 
   ).then(() =>

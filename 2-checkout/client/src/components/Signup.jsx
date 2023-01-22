@@ -21,9 +21,9 @@ const Signup = () => {
     const isValidated = formValidator(errors, form.account)
     if (!isValidated) return setSubmitError(true)
 
-    return createUser(form.account).then(() => {
-      setPage('userInfo')
-    })
+    return createUser(form.account)
+      .then(() => setPage('userInfo'))
+      .catch((err) => setErrorSubmit(true))
   }
 
   useEffect(() => {

@@ -9,7 +9,7 @@ import { init } from '../lib/api.js'
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('userInfo')
+  const [page, setPage] = useState('signup')
   const [form, setForm] = useState({
     account: {
       username: 'david',
