@@ -79,5 +79,9 @@ module.exports = {
         throw new Error ('Cannot create new session')
       }
     },
+
+    update: (page, id) => {
+      return db.queryAsync(`UPDATE sessions SET page = '${page}' WHERE session_id = '${id}'`)
+    }
   }
 }

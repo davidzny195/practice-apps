@@ -10,7 +10,7 @@ import { init } from '../lib/api.js'
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('checkout')
+  const [page, setPage] = useState('paymentInfo')
   const [form, setForm] = useState({
     account: {
       username: 'david',

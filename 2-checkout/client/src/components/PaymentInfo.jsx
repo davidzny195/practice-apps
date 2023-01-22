@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { FormContext } from './App.jsx'
 import { handleErrors, clearErrors, formValidator } from '../lib/helpers.js'
-import { updateForm } from '../lib/api.js'
+import { updateForm, prevPage } from '../lib/api.js'
 import InputField from './InputField.jsx'
 
 const PaymentInfo = () => {
@@ -15,6 +15,11 @@ const PaymentInfo = () => {
     const res = handleErrors(e)
     setErrors({ ...errors, [res.name]: res.error })
     setForm(prev => ({ ...prev, paymentInfo: { ...prev.paymentInfo, [res.name]: res.value }}))
+  }
+
+  const handlePrev = () => {
+    prevPage({ page: 'userInfo'})
+    setPage('userInfo')
   }
 
   const handleSubmit = () => {
@@ -46,7 +51,7 @@ const PaymentInfo = () => {
               </div>
           })}
         </div>
-        <button onClick={() => setPage('userInfo')}>Prev</button>
+        <button onClick={handlePrev}>Prev</button>
         {submitError && <span className="errorMessage">Form is not completed</span>}
         <div>
           <button onClick={handleSubmit}>Purchase</button>

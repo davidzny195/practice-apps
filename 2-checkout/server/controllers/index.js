@@ -38,5 +38,11 @@ module.exports = {
 
     },
 
+    update: (req, res) => {
+      return models.session.update(req.body.page, req.session_id)
+        .then((result) => res.status(203).send('Update Session Success'))
+        .catch((err) => res.status(404).send('Update Session Unsuccessful'))
+    }
+
   }
 }

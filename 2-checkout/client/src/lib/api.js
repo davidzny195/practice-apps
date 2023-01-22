@@ -30,9 +30,23 @@ const updateForm = (params) => {
   })
 }
 
+const prevPage = (params) => {
+  return fetch(`${server}/session`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  }).then((res) => {
+    return res
+  }).catch((err) => {
+    console.log('Error creating user')
+  })
+}
+
 const populateForm = () => {
 
 }
 
 
-export { init, createUser, populateForm, updateForm }
+export { init, createUser, populateForm, updateForm, prevPage }
