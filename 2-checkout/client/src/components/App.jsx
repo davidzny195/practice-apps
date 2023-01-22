@@ -9,26 +9,26 @@ import { init } from '../lib/api.js'
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('checkout')
+  const [page, setPage] = useState('userInfo')
   const [form, setForm] = useState({
     account: {
-      username: '',
-      email: '',
-      password: '',
+      username: 'david',
+      email: 'test@test.com',
+      password: '12345Aa!a',
     },
     userInfo: {
-      address_line1: '',
+      address_line1: '123',
       address_line2: '',
-      city: '',
-      state: '',
-      zip: '',
-      phone_number: '',
+      city: '123',
+      state: '123',
+      zip: '12522',
+      phone_number: '123123123',
     },
     paymentInfo: {
       credit: '5555555555554444',
-      expiry: '',
-      CVV: '',
-      billing_zip: ''
+      expiry: '2023-01-26',
+      CVV: '333',
+      billing_zip: '10011'
     }
   })
 

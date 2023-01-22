@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { FormContext } from './App.jsx'
 import { handleErrors, clearErrors, formValidator } from '../lib/helpers.js'
+import { createUser } from '../lib/api.js'
 import InputField from './InputField.jsx'
 
 const Signup = () => {
@@ -19,7 +20,10 @@ const Signup = () => {
   const handleNext = () => {
     const isValidated = formValidator(errors, form.account)
     if (!isValidated) return setSubmitError(true)
-    setPage('userInfo')
+
+    return createUser(form.account).then(() => {
+      setPage('userInfo')
+    })
   }
 
   useEffect(() => {
