@@ -10,32 +10,58 @@ import { init } from '../lib/api.js'
 export const FormContext = createContext()
 
 const App = () => {
-  const [page, setPage] = useState('paymentInfo')
+  const [page, setPage] = useState('')
   const [form, setForm] = useState({
     account: {
-      username: 'david',
-      email: 'test@test.com',
-      password: '12345Aa!a',
+      username: '',
+      email: '',
+      password: '',
     },
     userInfo: {
-      address_line1: '123',
+      address_line1: '',
       address_line2: '',
-      city: '123',
-      state: '123',
-      zip: '12522',
-      phone_number: '123123123',
+      city: '',
+      state: '',
+      zip: '',
+      phone_number: '',
     },
     paymentInfo: {
-      credit: '5555555555554444',
-      expiry: '2023-01-26',
-      CVV: '333',
-      billing_zip: '10011'
+      credit: '',
+      expiry: '',
+      CVV: '',
+      billing_zip: ''
     }
   })
 
-
+  console.log(page)
   useEffect(() => {
-    init()
+    return init().then((data) => {
+      if (data) {
+        const formData = {
+          account: {
+            username: data.username || '',
+            email: data.email || '',
+            password: data.password || '',
+          },
+          userInfo: {
+            address_line1: data.address_line1 || '',
+            address_line2: data.address_line2 || '',
+            city: data.city || '',
+            state: data.state || '',
+            zip: data.zip || '',
+            phone_number: data.phone_number || '',
+          },
+          paymentInfo: {
+            credit: data.credit || '',
+            expiry: data.expiry || '',
+            CVV: data.CVV || '',
+            billing_zip: data.billing_zip || ''
+          }
+        }
+        setForm(formData)
+        setPage(data.page || 'checkout')
+      }
+    })
   }, [])
 
   const formComponents = {

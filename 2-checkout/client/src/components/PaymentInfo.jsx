@@ -27,7 +27,7 @@ const PaymentInfo = () => {
     if (!isValidated) return setSubmitError(true)
     return updateForm({ ...form.paymentInfo, page: 'summary'})
       .then((res) => {
-        if (res.status === 203) setPage('summary')
+        if (res === 203) setPage('summary')
         else setSubmitError(true)
       })
   }

@@ -12,17 +12,11 @@ module.exports = {
   },
 
   checkout: {
-    populate: (req, res) => {
-      // get userInput from database
-      res.json('hello')
-    },
-
-
     updateForm: async (req, res) => {
 
       try {
         const update = await models.checkout.updateForm(req.body, req.session_id)
-        if (update) res.status(203).send('Update Successful')
+        res.status(203).send('Update Successful')
 
       } catch (err) {
         res.status(404).send(err)
@@ -33,9 +27,11 @@ module.exports = {
   session: {
     handler: (req, res) => {
       return models.session.handler(req.session_id).then((result) => {
+        if (result[0].length) {
+          return res.status(200).send(result[0][0])
+        }
         res.status(200).json('Session initiated')
       }).catch((err) => res.status(400).send('Session not initiated'))
-
     },
 
     update: (req, res) => {

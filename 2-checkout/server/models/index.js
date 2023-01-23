@@ -29,7 +29,7 @@ module.exports = {
 
   checkout: {
     populate: (params) => {
-      console.log('hello')
+        return db.queryAsync(`SELECT * FROM users INNER JOIN user_info ON user_info.user_id = users.id INNER JOIN sessions ON sessions.user_id = users.id`)
     },
 
 
@@ -54,7 +54,7 @@ module.exports = {
         if (params.page === 'summary') {
           const submissionCheck = await db.queryAsync(`SELECT submitted FROM sessions WHERE user_id = '${userId}'`)
           if (submissionCheck[0][0].submitted) throw ('Cannot submit again')
-          return db.queryAsync(`UPDATE sessions SET page = '${params.page}', submitted = ${true} WHERE session_id = '${session_id}'`)
+          await db.queryAsync(`UPDATE sessions SET page = '${params.page}', submitted = ${true} WHERE session_id = '${session_id}'`)
         }
         return db.queryAsync(`UPDATE sessions SET page = '${params.page}'  WHERE session_id = '${session_id}'`)
       } catch (err) {
